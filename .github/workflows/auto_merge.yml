@@ -14,7 +14,7 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v2
       with:
-        ref: main
+        ref: master
         fetch-depth: 0
         lfs: true
 
@@ -24,8 +24,9 @@ jobs:
         git config --global user.name "github-actions[bot]"
     - name: Load upstream commits
       run: |
-        git update-index --assume-unchanged ./src/main/resources/config.json
-        git pull https://github.com/ZHDeveloper/JD_Sign_Action.git --log --no-commit
+       git pull https://github.com/ZHDeveloper/JD_Sign_Action.git --log --no-commit
+   # git update-index --assume-unchanged ./src/main/resources/config.json
+
     - name: Apply commit changes
       run: |
         if [ -f ./.git/MERGE_MSG ]; then
@@ -38,6 +39,6 @@ jobs:
         fi
     - name: Push Commits
       env:
-        DOWNSTREAM_BRANCH: main
+        DOWNSTREAM_BRANCH: master
         TZ: Asia/Shanghai
       run: git push origin $DOWNSTREAM_BRANCH
